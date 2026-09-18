@@ -14,6 +14,7 @@ const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 async function fetchJSON<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${BACKEND_URL}${path}`, {
     ...init,
+    cache:"no-store",
     headers: { "Content-Type": "application/json", ...(init?.headers ?? {}) },
   });
   if (!res.ok) {

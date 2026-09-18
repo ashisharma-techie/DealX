@@ -39,21 +39,24 @@ def get_trending_deals():
         {
             "id": "prod_001",
             "title": "Sample Trending Product",
-            "image": "https://via.placeholder.com/200",
-            "price": 24999,
-            "currency": "INR",
-            "retailer": "Amazon"
+            "imageEmoji": "📱",
+            "accent": "lavender",
+            "retailer": "Amazon",
+            "currentPrice": 24999,
+            "originalPrice": 29999,
+            "currency": "INR"
         },
         {
             "id": "prod_002",
             "title": "Another Trending Product",
-            "image": "https://via.placeholder.com/200",
-            "price": 15999,
-            "currency": "INR",
-            "retailer": "Flipkart"
+            "imageEmoji": "🎧",
+            "accent": "sage",
+            "retailer": "Flipkart",
+            "currentPrice": 15999,
+            "originalPrice": 18999,
+            "currency": "INR"
         }
     ]
-
 
 # ---------- Product detail ----------
 
