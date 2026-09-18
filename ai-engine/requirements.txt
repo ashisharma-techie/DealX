@@ -1,0 +1,21 @@
+# Core
+numpy>=1.26
+pandas>=2.0
+scikit-learn>=1.3
+python-dotenv>=1.0
+
+# Forecasting (optional but preferred - falls back to sklearn if unavailable/history too short)
+prophet>=1.1.5
+
+# Microservice layer (pick ONE - Flask is used by service.py by default, see README)
+flask>=3.0
+# fastapi>=0.110         # uncomment if you switch service.py to FastAPI
+# uvicorn>=0.29          # uncomment if you switch service.py to FastAPI
+
+# LLM providers (only the one you actually use needs a valid key in .env)
+openai>=1.30
+google-generativeai>=0.5
+
+# Notebook
+jupyter>=1.0
+matplotlib>=3.8

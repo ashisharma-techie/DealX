@@ -1,0 +1,80 @@
+{
+  "source_product": {
+    "id": "prod_001",
+    "title": "Sony WH-1000XM5 Wireless Noise Cancelling Headphones - Black",
+    "specs": {
+      "brand": "Sony",
+      "model": "WH-1000XM5",
+      "color": "Black",
+      "connectivity": "Bluetooth 5.2",
+      "noise_cancelling": true,
+      "battery_life_hours": 30
+    }
+  },
+  "candidates": [
+    {
+      "id": "cand_a",
+      "marketplace": "eBay",
+      "title": "Sony WH1000XM5 Noise Cancelling Wireless Headphones Black - New Sealed",
+      "price": 279.0,
+      "specs": {
+        "brand": "Sony",
+        "model": "WH-1000XM5",
+        "color": "Black",
+        "connectivity": "Bluetooth 5.2",
+        "battery_life_hours": 30
+      },
+      "url": "https://ebay.com/sample-listing-sony-xm5",
+      "currency": "INR",
+      "condition": "refurbished"
+    },
+    {
+      "id": "cand_b",
+      "marketplace": "Facebook Marketplace",
+      "title": "Sony XM4 Headphones (like XM5 but older model) great condition",
+      "price": 150.0,
+      "specs": {
+        "brand": "Sony",
+        "model": "WH-1000XM4",
+        "color": "Black",
+        "connectivity": "Bluetooth 5.0",
+        "battery_life_hours": 30
+      },
+      "url": "https://facebook.com/marketplace/sample-xm4",
+      "currency": "INR",
+      "condition": "used"
+    },
+    {
+      "id": "cand_c",
+      "marketplace": "OfferUp",
+      "title": "Bose QuietComfort 45 Headphones - Excellent",
+      "price": 199.0,
+      "specs": {
+        "brand": "Bose",
+        "model": "QuietComfort 45",
+        "color": "Black",
+        "connectivity": "Bluetooth 5.1",
+        "battery_life_hours": 24
+      },
+      "url": "https://offerup.com/sample-bose-qc45",
+      "currency": "INR",
+      "condition": "used"
+    },
+    {
+      "id": "cand_d",
+      "marketplace": "Craigslist",
+      "title": "Sony WH-1000XM5 Silver - open box, used twice",
+      "price": 260.0,
+      "specs": {
+        "brand": "Sony",
+        "model": "WH-1000XM5",
+        "color": "Silver",
+        "connectivity": "Bluetooth 5.2",
+        "battery_life_hours": 30
+      },
+      "url": "https://craigslist.org/sample-xm5-silver",
+      "currency": "INR",
+      "condition": "used"
+    }
+  ]
+}
