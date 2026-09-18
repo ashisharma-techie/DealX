@@ -1,16 +1,22 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
+from datetime import date, timedelta
+import random
 
 app = FastAPI(title="DealX Backend")
+
+
+# ---------- Health check ----------
 
 @app.get("/health")
 def health():
     return {"status": "ok"}
 
 
+# ---------- Product search ----------
+
 @app.get("/products/search")
 def search_products(q: str):
-    # For now this returns fake/mock data.
-    # Later we'll replace this with real scraped data.
     return {
         "results": [
             {
@@ -23,9 +29,36 @@ def search_products(q: str):
             }
         ]
     }
+
+
+# ---------- Trending deals (for the landing page) ----------
+
+@app.get("/deals/trending")
+def get_trending_deals():
+    return [
+        {
+            "id": "prod_001",
+            "title": "Sample Trending Product",
+            "image": "https://via.placeholder.com/200",
+            "price": 24999,
+            "currency": "INR",
+            "retailer": "Amazon"
+        },
+        {
+            "id": "prod_002",
+            "title": "Another Trending Product",
+            "image": "https://via.placeholder.com/200",
+            "price": 15999,
+            "currency": "INR",
+            "retailer": "Flipkart"
+        }
+    ]
+
+
+# ---------- Product detail ----------
+
 @app.get("/products/{product_id}")
 def get_product(product_id: str):
-    # Mock data for now — later this comes from the database
     return {
         "id": product_id,
         "title": "Sample Product",
@@ -39,15 +72,14 @@ def get_product(product_id: str):
             "storage": "128GB"
         }
     }
-from datetime import date, timedelta
-import random
 
+
+# ---------- Price forecast ----------
 
 @app.get("/products/{product_id}/forecast")
 def get_forecast(product_id: str):
     today = date.today()
 
-    # last 15 days of "history" - mock, slightly random for realism
     history = []
     base_price = 24999
     for i in range(15, 0, -1):
@@ -55,7 +87,6 @@ def get_forecast(product_id: str):
         price = base_price + random.randint(-500, 500)
         history.append({"date": str(d), "price": price})
 
-    # next 30 days "forecast" - trending slightly down
     forecast = []
     predicted = base_price
     for i in range(1, 31):
@@ -71,6 +102,8 @@ def get_forecast(product_id: str):
     return {"history": history, "forecast": forecast}
 
 
+# ---------- Deal Integrity Score ----------
+
 @app.get("/products/{product_id}/deal-score")
 def get_deal_score(product_id: str):
     return {
@@ -81,6 +114,10 @@ def get_deal_score(product_id: str):
         "baseline60d": 25800,
         "baseline90d": 25750
     }
+
+
+# ---------- Alternative listings ----------
+
 @app.get("/products/{product_id}/alternatives")
 def get_alternatives(product_id: str):
     return {
@@ -105,9 +142,17 @@ def get_alternatives(product_id: str):
     }
 
 
+# ---------- Alert subscription ----------
+
+class AlertSubscribeRequest(BaseModel):
+    productId: str
+    channel: str
+    contact: str
+    targetPrice: float | None = None
+
+
 @app.post("/alerts/subscribe")
-def subscribe_alert(product_id: str, channel: str, contact: str, target_price: float = None):
-    # Mock: pretend we saved this subscription
+def subscribe_alert(req: AlertSubscribeRequest):
     return {
         "subscribed": True,
         "alertId": "alert_001"
