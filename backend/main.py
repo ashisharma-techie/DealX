@@ -58,26 +58,69 @@ def get_trending_deals():
         }
     ]
 
-# ---------- Product detail ----------
+
+# ---------- Product detail (bundles price history, forecast, alternatives) ----------
 
 @app.get("/products/{product_id}")
 def get_product(product_id: str):
+    today = date.today()
+
+    price_history = []
+    base_price = 24999
+    for i in range(15, 0, -1):
+        d = today - timedelta(days=i)
+        price = base_price + random.randint(-500, 500)
+        price_history.append({"date": str(d), "price": price})
+
+    price_forecast = []
+    predicted = base_price
+    for i in range(1, 31):
+        d = today + timedelta(days=i)
+        predicted -= random.randint(0, 50)
+        price_forecast.append({
+            "date": str(d),
+            "price": predicted,
+            "confidenceLow": predicted - 300,
+            "confidenceHigh": predicted + 300
+        })
+
+    alternatives = [
+        {
+            "id": "alt_ebay_001",
+            "retailer": "eBay",
+            "price": 23499,
+            "currency": "INR",
+            "url": "https://ebay.com/sample-listing",
+            "inStock": True
+        },
+        {
+            "id": "alt_flipkart_001",
+            "retailer": "Flipkart",
+            "price": 24799,
+            "currency": "INR",
+            "url": "https://flipkart.com/sample-listing",
+            "inStock": True
+        }
+    ]
+
     return {
         "id": product_id,
         "title": "Sample Product",
-        "image": "https://via.placeholder.com/200",
-        "currentPrice": 24999,
-        "currency": "INR",
+        "imageEmoji": "📱",
+        "accent": "lavender",
         "retailer": "Amazon",
-        "url": "https://amazon.in/sample-product",
-        "specs": {
-            "color": "Black",
-            "storage": "128GB"
-        }
+        "currentPrice": 24999,
+        "originalPrice": 29999,
+        "currency": "INR",
+        "description": "A sample product description for demo purposes.",
+        "integrityScore": 42,
+        "priceHistory": price_history,
+        "priceForecast": price_forecast,
+        "alternatives": alternatives
     }
 
 
-# ---------- Price forecast ----------
+# ---------- Standalone forecast endpoint (kept for the original API contract) ----------
 
 @app.get("/products/{product_id}/forecast")
 def get_forecast(product_id: str):
@@ -105,7 +148,7 @@ def get_forecast(product_id: str):
     return {"history": history, "forecast": forecast}
 
 
-# ---------- Deal Integrity Score ----------
+# ---------- Standalone Deal Integrity Score endpoint ----------
 
 @app.get("/products/{product_id}/deal-score")
 def get_deal_score(product_id: str):
@@ -119,7 +162,7 @@ def get_deal_score(product_id: str):
     }
 
 
-# ---------- Alternative listings ----------
+# ---------- Standalone alternatives endpoint ----------
 
 @app.get("/products/{product_id}/alternatives")
 def get_alternatives(product_id: str):
@@ -157,6 +200,6 @@ class AlertSubscribeRequest(BaseModel):
 @app.post("/alerts/subscribe")
 def subscribe_alert(req: AlertSubscribeRequest):
     return {
-        "subscribed": True,
-        "alertId": "alert_001"
+        "subscriptionId": "sub_001",
+        "status": "confirmed"
     }
